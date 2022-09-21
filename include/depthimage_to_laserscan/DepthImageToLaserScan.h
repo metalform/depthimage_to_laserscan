@@ -201,6 +201,11 @@ namespace depthimage_to_laserscan
             r = hypot(x, z);
           }
 
+          // if r is nan, replace it with inf.
+          if (std::isnan(r)){
+            r = std::numeric_limits<double>::infinity();
+          }
+          
           // Determine if this point should be used.
           if(use_point(r, scan_msg->ranges[index], scan_msg->range_min, scan_msg->range_max)){
             scan_msg->ranges[index] = r;
